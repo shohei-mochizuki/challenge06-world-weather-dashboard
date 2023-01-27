@@ -42,7 +42,8 @@
         <div class="row">
 
           <!-- Leftside search bar -->
-          <div class="col-12 col-md-3 col-lg-2"> 
+          <!-- <div class="col-12 col-md-3 col-lg-2" id="contentsLeft">  -->
+          <div class="col-12" id="contentsLeft"> 
             <h2>Search for a city</h2>
             <form id="search-form">
               <div class="mb-3">
@@ -57,7 +58,8 @@
           </div>
           
           <!-- Rightside result display -->
-          <div class="col-12 col-md-9 col-lg-10">         
+          <!-- <div class="col-12 col-md-9 col-lg-10" id="contentsRight"> -->
+          <div class="col-12 col-md-9 col-lg-10 d-none" id="contentsRight">         
             <div class="row justify-content-start">
 
               <!-- Toggle (C/F) -->
@@ -74,7 +76,7 @@
               <!-- Today's Weather -->
               <div class="card col-12 my-2">
                 <div class="card-body" id="day0">
-                  <h3 class="card-title mb-3" id="selectedCity">City name</h3>
+                  <h3 class="card-title mb-3" id="selectedCity"></h3>
                   <h4 class="card-title mb-3" id="date0">Today<span id="icon0"> icon </span></h4>
                   <p class="card-text" id="temp0">Temp: </p>
                   <p class="card-text" id="wind0">Wind: </p>

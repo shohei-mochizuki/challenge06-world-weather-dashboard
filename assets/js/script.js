@@ -28,6 +28,17 @@ function getWeatherData(event){
     } 
   })
   .then(function (data) {
-    console.log(data);
+    showWeatherData(data);
+    displayResultSection();
   });
+}
+
+function showWeatherData(fetchedData){
+  document.getElementById("selectedCity").textContent += fetchedData.city.name;
+  document.getElementById("temp0").textContent += fetchedData.list[0].main.temp;
+}
+
+function displayResultSection(){
+  document.getElementById("contentsLeft").classList.add("col-md-3","col-lg-2");
+  document.getElementById("contentsRight").classList.remove("d-none");
 }
