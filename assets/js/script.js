@@ -2,6 +2,8 @@ let apiKey = "91968567ff99e1beb7a3cbfb1666acb9";
 let searchBtn = document.getElementById("searchBtn");
 let searchedCities = {};
 let historySection = document.getElementById("historySection");
+let cBtn = document.getElementById("cBtn");
+let fBtn = document.getElementById("fBtn");
 
 function getInputCity(event){
   event.preventDefault();
@@ -99,6 +101,27 @@ function displayDates(){
   }
 }
 
+function changeToC(event){
+  event.preventDefault();
+  fBtn.removeAttribute("disabled");
+  fBtn.classList.add("btn-outline-primary");
+  fBtn.classList.remove("btn-primary");
+  cBtn.setAttribute("disabled", "");
+  cBtn.classList.add("btn-primary");
+  cBtn.classList.remove("btn-outline-primary");
+}
+
+function changeToF(event){
+  event.preventDefault();
+  cBtn.removeAttribute("disabled");
+  cBtn.classList.add("btn-outline-primary");
+  cBtn.classList.remove("btn-primary");
+  fBtn.setAttribute("disabled", "");
+  fBtn.classList.add("btn-primary");
+  fBtn.classList.remove("btn-outline-primary");
+}
+
+
 function init(){
   displayHistory();
 }
@@ -106,5 +129,8 @@ function init(){
 searchBtn.addEventListener("click", getInputCity);
 
 historySection.addEventListener("click", getClickedCity);
+
+cBtn.addEventListener("click", changeToC);
+fBtn.addEventListener("click", changeToF);
 
 init();

@@ -27,9 +27,9 @@
                 Trip planning tools
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="https://www.google.com/travel/flights" target="_blank">Flights</a></li>
-                <li><a class="dropdown-item" href="https://www.booking.com" target="_blank">Hotels</a></li>
-                <li><a class="dropdown-item" href="https://www.ca.kayak.com/cars" target="_blank">Cars</a></li>
+                <li><a class="dropdown-item" href="https://www.google.com/travel/flights" target="_blank">✈️ Flights</a></li>
+                <li><a class="dropdown-item" href="https://www.booking.com" target="_blank">🏨 Hotels</a></li>
+                <li><a class="dropdown-item" href="https://www.ca.kayak.com/cars" target="_blank">🚘 Cars</a></li>
               </ul>
             </li>
           </ul>
@@ -44,7 +44,7 @@
           <!-- Leftside search bar -->
           <!-- <div class="col-12 col-md-3 col-lg-2" id="contentsLeft">  -->
           <div class="col-12" id="contentsLeft"> 
-            <h2>Search for a city</h2>
+            <h2>Search for a city 🏖</h2>
             <form id="search-form">
               <div class="mb-3">
                 <input
@@ -54,7 +54,7 @@
                   class="form-control"
                 />
               </div>
-            <button class="btn btn-primary col-12" id="searchBtn">Search</button>
+            <button class="btn btn-warning col-12" id="searchBtn">Search</button>
             <div id="historySection" class="mt-5"></div>
           </div>
           
@@ -64,18 +64,15 @@
             <div class="row justify-content-start">
 
               <!-- Toggle (C/F) -->
-              <div class="col-1 my-2">
-                <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
-                  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                  <label class="btn btn-outline-primary" for="btnradio1">C°</label>
-                
-                  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                  <label class="btn btn-outline-primary" for="btnradio2">F°</label>
+              <div class="col-3 my-2">
+                <div class="d-grid gap-2 d-md-block">
+                  <button class="btn btn-primary" type="button" id="cBtn" disabled>°C</button>
+                  <button class="btn btn-outline-primary" type="button" id="fBtn">°F</button>
                 </div>
               </div>
 
               <!-- Today's Weather -->
-              <div class="card col-12 my-2">
+              <div class="card text-white bg-primary col-12 my-2">
                 <div class="card-body" id="day0">
                   <h3 class="card-title mb-3" id="selectedCity"></h3>
                   <h4 class="card-title mb-3" id="date0"></h4>
@@ -87,14 +84,14 @@
               </div>
 
               <!-- 5 day forecast title -->
-              <div class="card col-12 my-2">
+              <div class="card bg-light col-12 my-2">
                 <div class="card-body row">
                   <h4 class="card-title col-12">5-Day Forecast</h4>
 
                   <!-- 5 day forecast cards -->
                   <div class="card-deck col-12 row justify-content-between my-2">
                   
-                    <div class="card col-12 col-lg-2">
+                    <div class="card text-white bg-primary col-12 col-lg-2">
                       <div class="card-body" id="day1">
                         <h5 class="card-title" id="date1"></h5>
                         <img id="icon1" src="">
@@ -104,7 +101,7 @@
                       </div>
                     </div>
 
-                    <div class="card col-12 col-lg-2">
+                    <div class="card text-white bg-primary col-12 col-lg-2">
                       <div class="card-body" id="day2">
                         <h5 class="card-title" id="date2"></h5>
                         <img id="icon2" src="">
@@ -114,7 +111,7 @@
                       </div>
                     </div>
 
-                    <div class="card col-12 col-lg-2">
+                    <div class="card text-white bg-primary col-12 col-lg-2">
                       <div class="card-body" id="day3">
                         <h5 class="card-title" id="date3"></h5>
                         <img id="icon3" src="">
@@ -124,7 +121,7 @@
                       </div>
                     </div>
 
-                    <div class="card col-12 col-lg-2">
+                    <div class="card text-white bg-primary col-12 col-lg-2">
                       <div class="card-body" id="day4">
                         <h5 class="card-title" id="date4"></h5>
                         <img id="icon4" src="">
@@ -134,7 +131,7 @@
                       </div>
                     </div>
 
-                    <div class="card col-12 col-lg-2">
+                    <div class="card text-white bg-primary col-12 col-lg-2">
                       <div class="card-body" id="day5">
                         <h5 class="card-title" id="date5"></h5>
                         <img id="icon5" src="">
