@@ -17,7 +17,6 @@ function getInputCity(event){
 
 function getClickedCity(event){
   event.preventDefault();
-  console.log("Clicked!");
   let selectedCity = event.target.value;
   getWeatherData(selectedCity);
 }
@@ -39,6 +38,7 @@ function getWeatherData(city){
     displayResultSection();
     displayDates();
     displayHistory();
+    resetCF();
   });
 }
 
@@ -109,6 +109,10 @@ function changeToC(event){
   cBtn.setAttribute("disabled", "");
   cBtn.classList.add("btn-primary");
   cBtn.classList.remove("btn-outline-primary");
+  for (e = 0; e < 6; e++){
+    document.getElementById(`temp${e}`).textContent = Math.round((Number(document.getElementById(`temp${e}`).textContent)-32)*5/9*10)/10;
+    document.getElementById(`unitCF${e}`).textContent = "C"
+  }
 }
 
 function changeToF(event){
@@ -119,8 +123,23 @@ function changeToF(event){
   fBtn.setAttribute("disabled", "");
   fBtn.classList.add("btn-primary");
   fBtn.classList.remove("btn-outline-primary");
+  for (d = 0; d < 6; d++){
+    document.getElementById(`temp${d}`).textContent = Math.round((Number(document.getElementById(`temp${d}`).textContent)*9/5+32)*10)/10;
+    document.getElementById(`unitCF${d}`).textContent = "F"
+  }
 }
 
+function resetCF(){
+  fBtn.removeAttribute("disabled");
+  fBtn.classList.add("btn-outline-primary");
+  fBtn.classList.remove("btn-primary");
+  cBtn.setAttribute("disabled", "");
+  cBtn.classList.add("btn-primary");
+  cBtn.classList.remove("btn-outline-primary");
+  for (f = 0; f < 6; f++){
+    document.getElementById(`unitCF${f}`).textContent = "C"
+  }
+}
 
 function init(){
   displayHistory();
