@@ -30,15 +30,28 @@ function getWeatherData(event){
   .then(function (data) {
     showWeatherData(data);
     displayResultSection();
+    displayDates();
   });
 }
 
 function showWeatherData(fetchedData){
-  document.getElementById("selectedCity").textContent += fetchedData.city.name;
-  document.getElementById("temp0").textContent += fetchedData.list[0].main.temp;
+  let iconId = fetchedData.list[0].weather[0].icon;
+  document.getElementById("selectedCity").textContent = fetchedData.city.name + ", " + fetchedData.city.country;
+  document.getElementById("icon0").setAttribute("src", `http://openweathermap.org/img/wn/${iconId}@2x.png`);
+  document.getElementById("temp0").textContent = Math.round((fetchedData.list[0].main.temp - 273.15)*10)/10;
+  document.getElementById("wind0").textContent = fetchedData.list[0].wind.speed;
+  document.getElementById("humi0").textContent = fetchedData.list[0].main.humidity;
+  console.log(fetchedData);
+  console.log(fetchedData.list[0].weather[0].icon);
 }
 
 function displayResultSection(){
   document.getElementById("contentsLeft").classList.add("col-md-3","col-lg-2");
   document.getElementById("contentsRight").classList.remove("d-none");
+}
+
+function displayDates(){
+  for (a = 0; a < 6; a++){
+    document.getElementById(`date${a}`).textContent = dayjs().add(a,"day").format("MMM DD");
+  }
 }

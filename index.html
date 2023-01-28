@@ -54,7 +54,7 @@
                   class="form-control"
                 />
               </div>
-            <button class="btn btn-primary" id="searchBtn">Search</button>
+            <button class="btn btn-primary col-12" id="searchBtn">Search</button>
           </div>
           
           <!-- Rightside result display -->
@@ -77,10 +77,11 @@
               <div class="card col-12 my-2">
                 <div class="card-body" id="day0">
                   <h3 class="card-title mb-3" id="selectedCity"></h3>
-                  <h4 class="card-title mb-3" id="date0">Today<span id="icon0"> icon </span></h4>
-                  <p class="card-text" id="temp0">Temp: </p>
-                  <p class="card-text" id="wind0">Wind: </p>
-                  <p class="card-text" id="humi0">Humidity: </p>
+                  <h4 class="card-title mb-3" id="date0"></h4>
+                  <img id="icon0" src="">
+                  <p class="card-text">Temp: <span id="temp0"></span><span> °C</span></p>
+                  <p class="card-text">Wind: <span id="wind0"></span><span> MPH</span></p>
+                  <p class="card-text">Humidity: <span id="humi0"></span><span> %</span></p>
                 </div>
               </div>
 
@@ -94,8 +95,8 @@
                   
                     <div class="card col-12 col-lg-2">
                       <div class="card-body" id="day1">
-                        <h5 class="card-title" id="date1">01/10/2023</h5>
-                        <p class="card-text" id="icon1">icon</p>
+                        <h5 class="card-title" id="date1"></h5>
+                        <img id="icon1" src="">
                         <p class="card-text" id="temp1">Temp: </p>
                         <p class="card-text" id="wind1">Wind: </p>
                         <p class="card-text" id="humi1">Humidity: </p>
@@ -104,8 +105,8 @@
 
                     <div class="card col-12 col-lg-2">
                       <div class="card-body" id="day2">
-                        <h5 class="card-title" id="date2">01/10/2023</h5>
-                        <p class="card-text" id="icon2">icon</p>
+                        <h5 class="card-title" id="date2"></h5>
+                        <img id="icon2" src="">
                         <p class="card-text" id="temp2">Temp: </p>
                         <p class="card-text" id="wind2">Wind: </p>
                         <p class="card-text" id="humi2">Humidity: </p>
@@ -114,8 +115,8 @@
 
                     <div class="card col-12 col-lg-2">
                       <div class="card-body" id="day3">
-                        <h5 class="card-title" id="date3">01/10/2023</h5>
-                        <p class="card-text" id="icon3">icon</p>
+                        <h5 class="card-title" id="date3"></h5>
+                        <img id="icon3" src="">
                         <p class="card-text" id="temp3">Temp: </p>
                         <p class="card-text" id="wind3">Wind: </p>
                         <p class="card-text" id="humi3">Humidity: </p>
@@ -124,8 +125,8 @@
 
                     <div class="card col-12 col-lg-2">
                       <div class="card-body" id="day4">
-                        <h5 class="card-title" id="date4">01/10/2023</h5>
-                        <p class="card-text" id="icon4">icon</p>
+                        <h5 class="card-title" id="date4"></h5>
+                        <img id="icon4" src="">
                         <p class="card-text" id="temp4">Temp: </p>
                         <p class="card-text" id="wind4">Wind: </p>
                         <p class="card-text" id="humi4">Humidity: </p>
@@ -134,8 +135,8 @@
 
                     <div class="card col-12 col-lg-2">
                       <div class="card-body" id="day5">
-                        <h5 class="card-title" id="date5">01/10/2023</h5>
-                        <p class="card-text" id="icon5">icon</p>
+                        <h5 class="card-title" id="date5"></h5>
+                        <img id="icon5" src="">
                         <p class="card-text" id="temp5">Temp: </p>
                         <p class="card-text" id="wind5">Wind: </p>
                         <p class="card-text" id="humi5">Humidity: </p>
@@ -157,5 +158,7 @@
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"
   ></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/utc.js"></script>
   <script src="./assets/js/script.js"></script>
 </html>
