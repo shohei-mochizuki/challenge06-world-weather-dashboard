@@ -1,3 +1,4 @@
+let apiKey = "91968567ff99e1beb7a3cbfb1666acb9";
 let searchBtn = document.getElementById("searchBtn");
 let searchedCities = {};
 let historySection = document.getElementById("historySection");
