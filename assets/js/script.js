@@ -1,5 +1,3 @@
-// let apiKey = "91968567ff99e1beb7a3cbfb1666acb9";
-let apiKey = secrets.openweather_api_key;
 let searchBtn = document.getElementById("searchBtn");
 let searchedCities = {};
 let historySection = document.getElementById("historySection");
