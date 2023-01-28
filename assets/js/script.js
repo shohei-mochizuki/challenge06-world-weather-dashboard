@@ -1,15 +1,27 @@
 let apiKey = "91968567ff99e1beb7a3cbfb1666acb9";
 let searchBtn = document.getElementById("searchBtn");
 let searchedCities = {};
+let historySection = document.getElementById("historySection");
 
-function getWeatherData(event){
+function getInputCity(event){
   event.preventDefault();
   let selectedCity = document.getElementById("city-input").value;
   if (selectedCity===""){
     window.alert("Please type a city name in the search input box");
     return;
   }
-  let requestUrl = `http://api.openweathermap.org/data/2.5/forecast?q=${selectedCity}&appid=${apiKey}`; 
+  getWeatherData(selectedCity);
+}
+
+function getClickedCity(event){
+  event.preventDefault();
+  console.log("Clicked!");
+  let selectedCity = event.target.value;
+  getWeatherData(selectedCity);
+}
+
+function getWeatherData(city){
+  let requestUrl = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`; 
   fetch(requestUrl)
   .then(function (response) {
     if (response.ok===false) {
@@ -22,9 +34,9 @@ function getWeatherData(event){
   .then(function (data) {
     showWeatherData(data);
     saveSearch(data);
-    displayHistory();
     displayResultSection();
     displayDates();
+    displayHistory();
   });
 }
 
@@ -50,9 +62,10 @@ function saveSearch(fetchedData){
 }
 
 function displayHistory(){
-  if (document.getElementById("historySection") !== null){
-    document.getElementById("historySection").remove();
+  if (document.getElementById("historyTitle") !== null){
+    document.getElementById("historyTitle").remove();
   }
+  
   searchedCities = JSON.parse(localStorage.getItem("cities"));
   if (searchedCities !== null) {
     let historySection = document.createElement("div");
@@ -63,13 +76,13 @@ function displayHistory(){
     let historyTitle = document.createElement("h5");
     document.getElementById("historySection").appendChild(historyTitle);
     historyTitle.setAttribute("id", "historyTitle");
-    historyTitle.textContent = "🌎Search history";
+    historyTitle.textContent = "🌎 Search history";
 
     for (c = 0; c < Object.keys(searchedCities).length; c++){
       let history = document.createElement("button");
-      document.getElementById("historySection").appendChild(history);
-      history.setAttribute("id", `history${c}`);
-      history.classList.add("col-8");
+      document.getElementById("historyTitle").appendChild(history);
+      history.setAttribute("value", Object.keys(searchedCities)[c]);
+      history.classList.add("btn", "btn-secondary", "col-12", "my-1", "btn-history");
       history.textContent = Object.keys(searchedCities)[c];
     }
   }
@@ -90,6 +103,8 @@ function init(){
   displayHistory();
 }
 
-searchBtn.addEventListener("click", getWeatherData);
+searchBtn.addEventListener("click", getInputCity);
+
+historySection.addEventListener("click", getClickedCity);
 
 init();
