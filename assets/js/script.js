@@ -22,7 +22,7 @@ function getClickedCity(event){
 }
 
 function getWeatherData(city){
-  let requestUrl = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`; 
+  let requestUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`; 
   fetch(requestUrl)
   .then(function (response) {
     if (response.ok===false) {
