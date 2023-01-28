@@ -1,10 +1,4 @@
-// let lat = "43.65";
-// let lon = "-79.34";
-// let city = "London";
 let apiKey = "91968567ff99e1beb7a3cbfb1666acb9";
-// let requestUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`; // Search with lat & lon
-// let requestUrlcity = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`; // Search with city name
-
 let searchBtn = document.getElementById("searchBtn");
 
 searchBtn.addEventListener("click", getWeatherData);
@@ -35,14 +29,19 @@ function getWeatherData(event){
 }
 
 function showWeatherData(fetchedData){
-  let iconId = fetchedData.list[0].weather[0].icon;
   document.getElementById("selectedCity").textContent = fetchedData.city.name + ", " + fetchedData.city.country;
-  document.getElementById("icon0").setAttribute("src", `http://openweathermap.org/img/wn/${iconId}@2x.png`);
-  document.getElementById("temp0").textContent = Math.round((fetchedData.list[0].main.temp - 273.15)*10)/10;
-  document.getElementById("wind0").textContent = fetchedData.list[0].wind.speed;
-  document.getElementById("humi0").textContent = fetchedData.list[0].main.humidity;
-  console.log(fetchedData);
-  console.log(fetchedData.list[0].weather[0].icon);
+  let indexList = [0,7,15,23,31,39]
+  for (b = 0; b < indexList.length ; b++){
+    index = indexList[b];
+    console.log(index);
+
+    let iconId = fetchedData.list[index].weather[0].icon;
+    document.getElementById(`icon${b}`).setAttribute("src", `http://openweathermap.org/img/wn/${iconId}.png`);
+    document.getElementById(`temp${b}`).textContent = Math.round((fetchedData.list[index].main.temp - 273.15)*10)/10;
+    document.getElementById(`wind${b}`).textContent = fetchedData.list[index].wind.speed;
+    document.getElementById(`humi${b}`).textContent = fetchedData.list[index].main.humidity;
+
+  }
 }
 
 function displayResultSection(){
