@@ -42,20 +42,36 @@ function showWeatherData(fetchedData){
 }
 
 function saveSearch(fetchedData){
+  if (searchedCities === null) {
+    searchedCities = {};
+  }
   searchedCities[fetchedData.city.name]=fetchedData.city.name;
   localStorage.setItem("cities", JSON.stringify(searchedCities));
 }
 
 function displayHistory(){
+  if (document.getElementById("historySection") !== null){
+    document.getElementById("historySection").remove();
+  }
   searchedCities = JSON.parse(localStorage.getItem("cities"));
   if (searchedCities !== null) {
     let historySection = document.createElement("div");
     document.getElementById("contentsLeft").appendChild(historySection);
+    historySection.classList.add("mt-5");
     historySection.setAttribute("id", "historySection");
-    let history0 = document.createElement("p");
-    document.getElementById("historySection").appendChild(history0);
-    history0.setAttribute("id", "history0");
-    history0.textContent = Object.keys(searchedCities)[0];
+    
+    let historyTitle = document.createElement("h5");
+    document.getElementById("historySection").appendChild(historyTitle);
+    historyTitle.setAttribute("id", "historyTitle");
+    historyTitle.textContent = "🌎Search history";
+
+    for (c = 0; c < Object.keys(searchedCities).length; c++){
+      let history = document.createElement("button");
+      document.getElementById("historySection").appendChild(history);
+      history.setAttribute("id", `history${c}`);
+      history.classList.add("col-8");
+      history.textContent = Object.keys(searchedCities)[c];
+    }
   }
 }
 
@@ -70,4 +86,10 @@ function displayDates(){
   }
 }
 
+function init(){
+  displayHistory();
+}
+
 searchBtn.addEventListener("click", getWeatherData);
+
+init();
