@@ -11,7 +11,7 @@ function init(){
   displayHistory();
 }
 
-// Get the city name that is inputin the search section and pass it to the function "getWeatherData"
+// Get the city name that is inputin the search section and pass it to the functions "getWeatherData"
 function getInputCity(event){
   event.preventDefault();
   let selectedCity = document.getElementById("city-input").value;
@@ -19,19 +19,21 @@ function getInputCity(event){
     window.alert("Please type a city name in the search input box");
     return;
   }
-  getWeatherData(selectedCity);
+  getCurrentWeatherData(selectedCity); // Fetch current weather data
+  getForecastWeatherData(selectedCity); // Fetch 5-day forecast weather data
 }
 
-// Get the city name that is clicked and pass it to the function "getWeatherData"
+// Get the city name that is clicked and pass it to the functions "getWeatherData"
 function getClickedCity(event){
   event.preventDefault();
   let selectedCity = event.target.value;
-  getWeatherData(selectedCity);
+  getCurrentWeatherData(selectedCity); // Fetch current weather data
+  getForecastWeatherData(selectedCity); // Fetch 5-day forecast weather data
 }
 
-// Fetch weather data from OpenWeather server
-function getWeatherData(city){
-  let requestUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`; 
+// Fetch current weather data from OpenWeather server
+function getCurrentWeatherData(city){
+  let requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`; 
   fetch(requestUrl)
   .then(function (response) {
     if (response.ok===false) { // When there's an error, show the alert message below and do not continue subsequent executions
@@ -42,26 +44,51 @@ function getWeatherData(city){
     } 
   })
   .then(function (data) {
-    showWeatherData(data); // Show weather information (values)
+    showCurrentWeatherData(data); // Show weather information (values)
     saveSearch(data); // Save this new city name in Local Storage
     displayResultSection(); // Show weather information section (right side of the window) in case it's not shown
-    displayDates(); // Show dates of today and 5 following days
+    displayDates(data); // Show dates of today and 5 following days
     displayHistory(); // Refresh (or create) search history section and list the city names that have been searched
     resetCF(); // Reset the temperature unit settings to °C
   });
 }
 
+// Fetch 5-day forecast weather data from OpenWeather server
+function getForecastWeatherData(city){
+  let requestUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`; 
+  fetch(requestUrl)
+  .then(function (response) {
+    if (response.ok===false) { // When there's an error, do not continue subsequent executions
+    return;
+    } else {
+      return response.json();
+    } 
+  })
+  .then(function (data) {
+    showForecastWeatherData(data); // Show weather information (values)
+  });
+}
+
 // Show weather data (icon, temp, wind & humidity) in both current weather section and 5-day forecast
-function showWeatherData(fetchedData){
-  document.getElementById("selectedCity").textContent = fetchedData.city.name + ", " + fetchedData.city.country;
-  let indexList = [0,7,15,23,31,39] // [0] for current weather and [7,15,23,31,39] for 5-day forecast *Index is from the fetched data
+function showCurrentWeatherData(fetchedData){
+  document.getElementById("selectedCity").textContent = fetchedData.name + ", " + fetchedData.sys.country;
+  let iconId = fetchedData.weather[0].icon;
+  document.getElementById("icon0").setAttribute("src", `http://openweathermap.org/img/wn/${iconId}.png`); // Show weather icon in current weather section
+  document.getElementById("temp0").textContent = Math.round((fetchedData.main.temp - 273.15)*10)/10; // Show temp value in °C in current weather section
+  document.getElementById("wind0").textContent = fetchedData.wind.speed; // Show wind speed value in current weather section
+  document.getElementById("humi0").textContent = fetchedData.main.humidity; // Show humidity value in current weather section
+}
+
+// Show weather data (icon, temp, wind & humidity) in both current weather section and 5-day forecast
+function showForecastWeatherData(fetchedData){
+  let indexList = [7,15,23,31,39] // Index numbers (7,15,23...) are from the fetched data (+8 = +24hours)
   for (b = 0; b < indexList.length ; b++){
     index = indexList[b];
     let iconId = fetchedData.list[index].weather[0].icon;
-    document.getElementById(`icon${b}`).setAttribute("src", `http://openweathermap.org/img/wn/${iconId}.png`); // Show weather icon in respective element
-    document.getElementById(`temp${b}`).textContent = Math.round((fetchedData.list[index].main.temp - 273.15)*10)/10; // Show temp value in °C in respective element
-    document.getElementById(`wind${b}`).textContent = fetchedData.list[index].wind.speed; // Show wind speed value in respective element
-    document.getElementById(`humi${b}`).textContent = fetchedData.list[index].main.humidity; // Show humidity value in respective element
+    document.getElementById(`icon${b+1}`).setAttribute("src", `http://openweathermap.org/img/wn/${iconId}.png`); // Show weather icon in respective element
+    document.getElementById(`temp${b+1}`).textContent = Math.round((fetchedData.list[index].main.temp - 273.15)*10)/10; // Show temp value in °C in respective element
+    document.getElementById(`wind${b+1}`).textContent = fetchedData.list[index].wind.speed; // Show wind speed value in respective element
+    document.getElementById(`humi${b+1}`).textContent = fetchedData.list[index].main.humidity; // Show humidity value in respective element
   }
 }
 
@@ -70,7 +97,7 @@ function saveSearch(fetchedData){
   if (searchedCities === null) {
     searchedCities = {}; // If Local Storage has no data (no search has been done before), "searchCities" is a blank object
   }
-  searchedCities[fetchedData.city.name]=fetchedData.city.name; // Put the city name in both Key and Value of the object
+  searchedCities[fetchedData.name]=fetchedData.name; // Put the city name in both Key and Value of the object
   localStorage.setItem("cities", JSON.stringify(searchedCities)); // As a Key needs to be unique, same city names won't be added to the object
 }
 
@@ -103,10 +130,15 @@ function displayResultSection(){
   document.getElementById("contentsRight").classList.remove("d-none");
 }
 
-// Show dates in both current weather and 5-day forecast sections (get today's date from dayjs and add 0 to 5 to each element)
-function displayDates(){
+// Show dates in both current weather and 5-day forecast sections (date & time are local - selected city's - time)
+function displayDates(fetchedData){
+  console.log(fetchedData);
   for (a = 0; a < 6; a++){
-    document.getElementById(`date${a}`).textContent = dayjs().add(a,"day").format("MMM DD");
+    let unixLocalTime = fetchedData.dt + fetchedData.timezone + (86400 * a); // Using the fetched data (time & timezone), calculate unix time for the current date & following 5 days
+    let localTime = new Date(unixLocalTime * 1000);
+    let localMonth = localTime.getUTCMonth() + 1; // Use getUTCMonth() instead of getMonth() to prevent browser from considering the timezone of the computer that a user is using.
+    let localDate = localTime.getUTCDate();
+    document.getElementById(`date${a}`).textContent = localMonth + "/" + localDate;
   }
 }
 

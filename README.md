@@ -15,7 +15,7 @@ Originally created for Module 6 challenge of UofT SCS Coding Boot Camp - Server-
 
 Type your desired city name in the search box and click the button "Search". If the input was invalid (when it's blank or a city name that doesn't exist), you'll get an alart message.\
 If you have previously searched weather in this page, you can find these cities in the section "Search history". Only a click on a city name you choose leads you to the weather information you need.\
-Once the weather data is loaded, you can find current weather information on the right top side and 5-day forecast on the right bottom side. Dates are based on your location and timezone.\
+Once the weather data is loaded, you can find current weather information on the right top side and 5-day forecast on the right bottom side. Dates are based on the local time of the city you selected.\
 If you would like to change the unit of temperature, you can do so by clicking either "°C" button or "°F" button at the top of the weather information section.\
 You can continue to get weather information of another city by using the search section or clicking a button in the Search history section.\
 You can also plan a vacation using some useful links on this page. Click the menu button "Trip planning tools" at the right top corner of the page and choose a category from the list below:
